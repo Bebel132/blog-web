@@ -1,0 +1,73 @@
+* {
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+li p {
+    cursor: pointer;
+    width: fit-content;
+}
+
+button {
+    padding: .5rem 1rem;
+    background-color: #00000000;
+    border: 1px solid;
+    border-radius: 5px;
+    cursor: pointer;
+    color: white;
+    transition: .1s;
+    height: 2.3rem;
+    margin-right: .5rem;
+}
+
+.new-button, form button {
+    background-color: #4CAF50;
+    border-color: #4CAF50;
+}
+
+.new-button:hover, form button:hover {
+    color: #45a049;
+    background-color: #00000000;
+}
+
+.edit-button {
+    background-color: #008CBA;
+    border-color: #008CBA;
+}
+
+.edit-button:hover {
+    color: #007bb5;
+    background-color: #00000000;
+}
+
+.delete-button {
+    background-color: #f44336;
+    border-color: #f44336;
+}
+
+.delete-button:hover {
+    color: #da190b;
+    background-color: #00000000;
+}
+
+.save-button {
+    background-color: #e7e7e7;
+    color: black;
+    border-color: #e7e7e7;
+}
+
+.save-button:hover {
+    color: #555;
+    background-color: #00000000;
+}
+
+input[type="text"], input[type="password"], textarea {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-family: 'Times New Roman', Times, serif;
+}

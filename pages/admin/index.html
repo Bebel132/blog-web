@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>admin</title>
+    <link rel="stylesheet" href="./../../../assets/css/modal.css">
+    <link rel="stylesheet" href="./../../../assets/css/admin.css">
+</head>
+<body>
+    <div class="login">
+        <form id="loginForm">
+            <input type="text" id="email" placeholder="Usuário" required />
+            <input type="password" id="password" placeholder="Senha" required />
+            <button type="submit">Entrar</button>
+        </form>
+    </div>
+    <div class="admin" style="display: none;">
+        <h1>Área Administrativa</h1>
+        <p>Bem-vindo à área administrativa do blog!</p>
+        <h2>Posts:</h2>
+        <button class="new-button">Criar Novo Post</button>
+        <ul class="postList">
+            <!-- Posts serão carregados aqui -->
+        </ul>
+        <div class="modal">
+            <div class="x">x</div>
+            <form>
+                <label for="titulo">Título:</label>
+                <input type="text" id="titulo" required />
+                <button type="submit">Criar</button>
+            </form>
+        </div>
+    </div>
+
+    <script type="module">
+        import { login, isAuthenticated } from "./../../../assets/js/auth.js";
+        import { getPosts, renderPosts } from "./../../../assets/js/posts.js";
+
+        document.getElementById("loginForm").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+
+            const success = await login(email, password);
+            if (success) {
+                document.querySelector(".login").style.display = "none";
+                document.querySelector(".admin").style.display = "block";
+            } else {
+                alert("Usuário ou senha inválidos");
+            }
+        });
+
+        if(isAuthenticated()) {
+            document.querySelector(".login").style.display = "none";
+            document.querySelector(".admin").style.display = "block";
+        } else {
+            document.querySelector(".login").style.display = "block";
+            document.querySelector(".admin").style.display = "none";
+        }
+
+        renderPosts(await getPosts(), true);        
+    </script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Posts</title>
+    <link rel="stylesheet" href="./../../../assets/css/modal.css">
+    <link rel="stylesheet" href="./../../../assets/css/admin.css">
+</head>
+<body>
+    <div class="admin">
+        <h1 id="title">Detalhes do Post:</h1>
+        <a href="javascript:history.back()">Voltar</a>
+        <div id="postContent">
+            <h2>Seções:</h2>
+            <button class="new-button">Criar Nova Seção</button>
+            <ul class="sectionList"></ul>
+            <!-- Seções serão carregadas aqui -->
+            <div class="modal">
+                <div class="x">x</div>
+                <form>
+                    <label for="titulo">Título:</label>
+                    <input type="text" id="titulo" required />
+                    <button type="submit">Criar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { getSections, renderSections } from "./../../../assets/js/sections.js";
+        document.getElementById("title").innerText += " "+new URLSearchParams(window.location.search).get("title");
+        const postId = new URLSearchParams(window.location.search).get("id");
+        renderSections(await getSections(postId), true);
+    </script>
+</body>
+</html>

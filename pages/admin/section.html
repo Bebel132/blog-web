@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Section</title>
+    <link rel="stylesheet" href="./../../../assets/css/modal.css">
+    <link rel="stylesheet" href="./../../../assets/css/admin.css">
+</head>
+<body>
+    <admin>
+        <h1 id="title">Textos da seção: </h1>
+        <a href="javascript:history.back()">Voltar</a>
+        <div class="texts">
+            <h2>Textos:</h2>
+            <button class="new-button">Criar Novo Texto</button>
+            <ul class="textList">
+                <!-- Texts serão carregados aqui -->
+            </ul>
+            <div class="modal">
+                <div class="x">x</div>
+                <form>
+                    <label for="content">Conteúdo:</label>
+                    <textarea name="content" style="width: 100%; height: 200px;" id="content" required></textarea>
+                    <button type="submit">Criar</button>
+                </form>
+            </div>
+        </div>
+    </admin>
+    
+    <script type="module">
+        import { getTexts, renderTexts } from "./../../../assets/js/texts.js";
+        document.getElementById("title").innerText += " "+new URLSearchParams(window.location.search).get("title");
+        const sectionId = new URLSearchParams(window.location.search).get("id");
+
+        renderTexts(await getTexts(sectionId), true);
+    </script>
+</body>
+</html>
