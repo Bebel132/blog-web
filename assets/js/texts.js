@@ -23,6 +23,12 @@ async function postText(content, sectionId) {
     });
 }
 
+async function deleteText(id) {
+    return authFetch(`${API_URL}/texts/${id}`, {
+        method: 'DELETE',
+    })
+}
+
 function renderTexts(texts) {
     const textList = document.querySelector(".textList");
     textList.innerHTML = "";
@@ -94,6 +100,14 @@ function renderButtons() {
         };
     });
 
+    document.querySelectorAll(".delete-button").forEach(deleteButton => {
+        deleteButton.onclick = async () => {
+            const parent = deleteButton.parentElement;
+            await deleteText(parent.dataset.id)
+            renderTexts(await getTexts(sectionId), true)
+        }
+    })
+
     document.querySelector(".new-button").onclick = () => {
         document.querySelector(".modal").style.display = "flex";
     }
@@ -106,11 +120,10 @@ function renderButtons() {
         e.preventDefault();
 
         const content = document.querySelector("#content").value;
-        const postId = new URLSearchParams(window.location.search).get("id")
 
-        await postText(content, postId);
+        await postText(content, sectionId);
 
-        renderTexts(await getTexts(postId));
+        renderTexts(await getTexts(sectionId));
 
         document.querySelector(".modal").style.display = "none";
         document.querySelector(".modal form").reset();
