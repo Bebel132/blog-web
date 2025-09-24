@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>admin</title>
-    <base href="/blog-web/">
-    <link rel="stylesheet" href="assets/css/modal.css">
-    <link rel="stylesheet" href="assets/css/admin.css">
+    <!-- <base href="/blog-web/"> -->
+    <link rel="stylesheet" href="/assets/css/modal.css">
+    <link rel="stylesheet" href="/assets/css/admin.css">
 </head>
 <body>
     <div class="login">
@@ -34,10 +34,10 @@
         </div>
     </div>
 
-    <script src="env.js"></script>
+    <script src="/env.js"></script>
     <script type="module">
-        import { login, isAuthenticated } from "../../assets/js/auth.js";
-        import { getPosts, renderPosts } from "../../assets/js/posts.js";
+        import { login, isAuthenticated } from "/assets/js/auth.js";
+        import { getPosts, renderPosts } from "/assets/js/posts.js";
 
         document.getElementById("loginForm").addEventListener("submit", async (e) => {
             e.preventDefault();

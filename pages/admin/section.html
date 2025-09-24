@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Section</title>
-    <base href="/blog-web/">
-    <link rel="stylesheet" href="assets/css/modal.css">
-    <link rel="stylesheet" href="assets/css/admin.css">
+    <!-- <base href="/blog-web/"> -->
+    <link rel="stylesheet" href="/assets/css/modal.css">
+    <link rel="stylesheet" href="/assets/css/admin.css">
 </head>
 <body>
     <admin>
@@ -29,9 +29,9 @@
         </div>
     </admin>
     
-    <script src="env.js"></script>
+    <script src="/env.js"></script>
     <script type="module">
-        import { getTexts, renderTexts } from "../../assets/js/texts.js";
+        import { getTexts, renderTexts } from "/assets/js/texts.js";
         document.getElementById("title").innerText += " "+new URLSearchParams(window.location.search).get("title");
         const sectionId = new URLSearchParams(window.location.search).get("id");
 
