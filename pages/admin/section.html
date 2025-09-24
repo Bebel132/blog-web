@@ -31,7 +31,7 @@
     
     <script src="env.js"></script>
     <script type="module">
-        import { getTexts, renderTexts } from "assets/js/texts.js";
+        import { getTexts, renderTexts } from "../../assets/js/texts.js";
         document.getElementById("title").innerText += " "+new URLSearchParams(window.location.search).get("title");
         const sectionId = new URLSearchParams(window.location.search).get("id");
 
