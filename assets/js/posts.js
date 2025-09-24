@@ -1,11 +1,13 @@
 import { authFetch, me } from "./auth.js";
 import { API_URL } from "./config.js";
 
-async function getPosts() {
-    const user = await me();
-    const response = await fetch(`${API_URL}/posts/${user.id}`);
-    
-    return response.json();
+async function getPosts(admin) {
+    if(admin){
+        const user = await me();
+        return (await fetch(`${API_URL}/posts/${user.id}`)).json();
+    } else {
+        return (await fetch(`${API_URL}/posts/`)).json();
+    }
 }
 
 async function putPost(id, title) {
