@@ -1,3 +1,7 @@
 .container > p:last-child {
     text-align: right;
 }
+
+.container {
+    text-align: justify;
+}
