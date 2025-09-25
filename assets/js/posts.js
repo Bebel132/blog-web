@@ -73,12 +73,6 @@ function renderPosts(posts, admin) {
             li.appendChild(saveButton);
             li.appendChild(deleteButton);
             postList.append(li);
-
-            document.querySelectorAll(".post-item").forEach(item => {
-                item.children[0].addEventListener("click", () => {
-                    window.location.href = `post.html?id=${post.id}&title=${encodeURIComponent(post.title)}`;
-                });
-            });
         });
         renderButtons();
     } else {
@@ -104,12 +98,16 @@ function renderPosts(posts, admin) {
             p.appendChild(small)
             li.appendChild(p);
             postList.append(li);
+        })
+    }
 
-            document.querySelectorAll(".post-item").forEach(item => {
-                item.children[0].addEventListener("click", () => {
-                    window.location.href = `post.html?id=${post.id}&title=${encodeURIComponent(post.title)}&date=${post.created_at}&creator=${post.creator}`;
-                });
-            });
+    for(let i = 0; i < posts.length; i++){
+        document.querySelectorAll(".post-item")[i].addEventListener("click", () => {
+            if(admin) {
+                window.location.href = `post.html?id=${posts[i].id}&title=${encodeURIComponent(posts[i].title)}`;
+            } else {
+                window.location.href = `post.html?id=${posts[i].id}&title=${encodeURIComponent(posts[i].title)}&date=${posts[i].created_at}&creator=${posts[i].creator}`;
+            } 
         })
     }
 }

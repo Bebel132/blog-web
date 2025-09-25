@@ -2,8 +2,23 @@
     text-align: right;
 }
 
+.container > p:nth-last-child(2) {
+  background-color: #999dd2;
+  padding: 1rem;
+  width: fit-content;
+}
+
+p {
+    width: 100%;
+}
+
 .container {
     text-align: justify;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .imgWrapper {
