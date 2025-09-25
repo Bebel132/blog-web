@@ -82,6 +82,9 @@ async function renderSections(sections, admin) {
         });
         renderButtons();
     } else {
+        document.querySelector(".loading").style.display = "fixed";
+        document.body.style.overflowY = "hidden";
+
         const container = document.querySelector(".container");
 
         const title = document.createElement("h1");
@@ -127,6 +130,9 @@ async function renderSections(sections, admin) {
         p.append(i)
         p.append(small)
         container.append(p)
+
+        document.querySelector(".loading").style.display = "none";
+        document.body.style.overflowY = "scroll";
     }
 }
 
