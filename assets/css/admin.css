@@ -71,3 +71,11 @@ input[type="text"], input[type="password"], textarea {
     box-sizing: border-box;
     font-family: 'Times New Roman', Times, serif;
 }
+
+img {
+    width: 100px;
+}
+
+img, input[type="file"] {
+    margin: 1rem 0;
+}

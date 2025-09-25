@@ -46,9 +46,12 @@ async function authFetch(url, options = {}) {
     let token = localStorage.getItem("access_token");
 
     const headers = {
-        'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`
     };
+
+    if (!(options.body instanceof FormData)) {
+        headers['Content-Type'] = 'application/json';
+    }
 
     let response = await fetch(url, { ...options, headers: { ...headers, ...options.headers } });
 
@@ -81,7 +84,13 @@ async function authFetch(url, options = {}) {
         throw new Error(`Erro na requisição: ${response.status}`);
     }
 
-    return response.json();
+    const contentType = response.headers.get('Content-Type') || '';
+    if (contentType.includes('application/json')) {
+        return response.json();
+    } else {
+        return response;
+    }
+
 }
 
 function isLoggedIn() {

@@ -1,6 +1,6 @@
 import { authFetch } from "./auth.js";
 import { API_URL } from "./config.js";
-import { getTexts } from "./texts.js"
+import { getTexts, getTextFile } from "./texts.js"
 
 const url = new URLSearchParams(window.location.search)
 const post = {
@@ -95,11 +95,22 @@ async function renderSections(sections, admin) {
             container.appendChild(subtitle);
 
             const texts = await getTexts(section.id);
-            texts.forEach(text => {
+            for (const text of texts) {
                 const p = document.createElement("p");
                 p.textContent = text.content;
                 container.appendChild(p);
-            })       
+
+                if (text.hasFile) {
+                    const imgWrapper = document.createElement("div");
+                    imgWrapper.classList.add("imgWrapper");
+
+                    const img = document.createElement("img");
+                    img.src = await getTextFile(text.id);
+
+                    imgWrapper.append(img)
+                    container.append(imgWrapper);
+                }
+            }
         }
 
         const p = document.createElement("p");

@@ -16,11 +16,17 @@ async function putText(id, content, sectionId) {
     });
 }
 
-async function postText(content, sectionId) {
-    return authFetch(`${API_URL}/texts/`, {
+async function postText(content, sectionId, file) {
+    const response = authFetch(`${API_URL}/texts/`, {
         method: 'POST',
         body: JSON.stringify({ content, sectionId })
     });
+
+    const text = await response;
+    
+    if(file) {
+        await postTextFile(file, text.id)
+    }
 }
 
 async function deleteText(id) {
@@ -29,16 +35,45 @@ async function deleteText(id) {
     })
 }
 
-function renderTexts(texts) {
+async function getTextFile(id) {
+    const response = await fetch(`${API_URL}/texts/${id}/file`)
+    
+    return URL.createObjectURL(await response.blob())
+}
+
+async function postTextFile(file, id) {
+   const formData = new FormData();
+    formData.append('file', file);
+
+    authFetch(`${API_URL}/texts/${id}/upload`, {
+        method: 'POST',
+        body: formData
+    });
+}
+
+async function renderTexts(texts) {
     const textList = document.querySelector(".textList");
     textList.innerHTML = "";
-    texts.forEach(text => {
+    for (const text of texts) {
         const li = document.createElement("li");
         li.classList.add("text-item");
         li.dataset.id = text.id;
 
         const p = document.createElement("p");
         p.textContent = text.content;
+
+        const img = document.createElement("img");
+        img.style.display = "none"
+
+        const upload = document.createElement("input");
+        upload.type = "file";
+        upload.accept = ".png,.jpg,.jpeg,.gif";
+        upload.style.display = "none"
+
+        if(text.hasFile) {
+            img.src = await getTextFile(text.id);
+            img.style.display = "block"
+        }
 
         const editButton = document.createElement("button");
         editButton.classList.add("edit-button");
@@ -60,24 +95,33 @@ function renderTexts(texts) {
         deleteButton.textContent = "Excluir";
 
         li.appendChild(p);
+        li.appendChild(img);
         li.appendChild(textarea);
         li.appendChild(editButton);
+
+        li.appendChild(upload)
+
         li.appendChild(saveButton);
         li.appendChild(deleteButton);
         textList.appendChild(li);
-    });
+    };
     renderButtons();
 }
 
 function renderButtons() {
     document.querySelectorAll(".edit-button").forEach(button => {
+        console.log(button.parentElement.childNodes)
         button.onclick = () => {
             const parent = button.parentElement;
             parent.children[0].style.display = "none"; // p
-            parent.children[1].style.display = "block"; // textarea
-            parent.children[2].style.display = "none"; // editButton
-            parent.children[3].style.display = "inline"; // saveButton   
-            parent.children[4].style.display = "none"; // deleteButton
+            parent.children[1].style.display = "none"; // img
+            parent.children[2].style.display = "block"; // textarea
+            parent.children[3].style.display = "none"; // editButton
+
+            parent.children[4].style.display = "block";
+
+            parent.children[5].style.display = "inline"; // saveButton   
+            parent.children[6].style.display = "none"; // deleteButton
         };
     });
 
@@ -85,14 +129,13 @@ function renderButtons() {
         saveButton.onclick = async () => {
             try {
                 const parent = saveButton.parentElement;
+                const file = parent.children[4].files[0];
 
-                parent.children[0].style.display = "block"; // p
-                parent.children[1].style.display = "none"; // textarea
+                if(file) {
+                    await postTextFile(file, parent.dataset.id)
+                }
 
-                parent.children[2].style.display = "block"; // editButton
-                parent.children[3].style.display = "none"; // saveButton
-
-                await putText(parent.dataset.id, parent.children[1].value, sectionId);
+                await putText(parent.dataset.id, parent.children[2].value, sectionId);
             } catch (error) {
                 alert("Erro ao salvar o texto");
             }
@@ -120,8 +163,9 @@ function renderButtons() {
         e.preventDefault();
 
         const content = document.querySelector("#content").value;
+        const file = document.querySelector("#file").files[0];
 
-        await postText(content, sectionId);
+        await postText(content, sectionId, file);
 
         renderTexts(await getTexts(sectionId));
 
@@ -130,4 +174,4 @@ function renderButtons() {
     }
 }
 
-export { getTexts, putText, renderTexts };
+export { getTexts, putText, getTextFile, renderTexts };

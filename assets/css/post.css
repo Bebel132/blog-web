@@ -5,3 +5,16 @@
 .container {
     text-align: justify;
 }
+
+.imgWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0;
+}
+
+img {
+    max-width: 250px;
+    width: 100%;
+    height: auto;
+}
