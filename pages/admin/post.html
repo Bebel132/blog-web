@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Posts</title>
     <!-- <base href="/blog-web/"> -->
+    <script src="../../env.js"></script>
     <link rel="stylesheet" href="/assets/css/modal.css">
     <link rel="stylesheet" href="/assets/css/admin.css">
 </head>
@@ -28,7 +29,6 @@
         </div>
     </div>
 
-    <script src="/env.js"></script>
     <script type="module">
         import { getSections, renderSections } from "/assets/js/sections.js";
         document.getElementById("title").innerText += " "+new URLSearchParams(window.location.search).get("title");
