@@ -35,7 +35,7 @@
 
     <script src="../../env.js"></script>
     <script type="module">
-        import { login, isAuthenticated } from "../../assets/js/auth.js";
+        import { login, isLoggedIn } from "../../assets/js/auth.js";
         import { getPosts, renderPosts } from "../../assets/js/posts.js";
 
         document.getElementById("loginForm").addEventListener("submit", async (e) => {
@@ -52,7 +52,7 @@
             }
         });
 
-        if(isAuthenticated()) {
+        if(isLoggedIn()) {
             document.querySelector(".login").style.display = "none";
             document.querySelector(".admin").style.display = "block";
         } else {

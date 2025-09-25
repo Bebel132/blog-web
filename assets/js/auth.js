@@ -52,7 +52,7 @@ async function authFetch(url, options = {}) {
 
     let response = await fetch(url, { ...options, headers: { ...headers, ...options.headers } });
 
-    if (response.status === 401) {
+    if (response.status === 401 || response.status === 500) {
         if (!isRefreshing) {
             isRefreshing = true;
             try {

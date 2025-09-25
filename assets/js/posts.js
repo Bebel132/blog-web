@@ -1,4 +1,4 @@
-import { authFetch, me } from "./auth.js";
+import { authFetch } from "./auth.js";
 import { API_URL } from "./config.js";
 
 async function getPosts(admin) {
