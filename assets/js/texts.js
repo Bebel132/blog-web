@@ -174,4 +174,4 @@ function renderButtons() {
     }
 }
 
-export { getTexts, putText, getTextFile, renderTexts };
+export { getTexts, putText, deleteText, postText, getTextFile, postTextFile, renderTexts };

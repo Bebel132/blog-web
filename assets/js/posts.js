@@ -106,7 +106,7 @@ function renderPosts(posts, admin) {
             if(admin) {
                 window.location.href = `post.html?id=${posts[i].id}&title=${encodeURIComponent(posts[i].title)}`;
             } else {
-                window.location.href = `post.html?id=${posts[i].id}&title=${encodeURIComponent(posts[i].title)}&date=${posts[i].created_at}&creator=${posts[i].creator}`;
+                window.location.href = `pages/post/index.html?id=${posts[i].id}&title=${encodeURIComponent(posts[i].title)}&date=${posts[i].created_at}&creator=${posts[i].creator}`;
             } 
         })
     }

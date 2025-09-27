@@ -197,4 +197,4 @@ function renderButtons() {
     }
 }
 
-export { getSections, renderSections };
+export { getSections, putSection, deleteSection, postSection, renderSections };
