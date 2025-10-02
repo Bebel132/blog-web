@@ -38,9 +38,8 @@
 
     <script src="../../env.js"></script>
     <script type="module">
-        import { getSections, renderSections } from "../../assets/js/sections.js";
         import { renderContent } from "../../assets/js/content.js";
-        renderContent()
+        renderContent(true)
         document.getElementById("title").innerText += " "+new URLSearchParams(window.location.search).get("title");
         // const postId = new URLSearchParams(window.location.search).get("id");
         // renderSections(await getSections(postId), true);

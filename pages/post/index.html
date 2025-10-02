@@ -7,16 +7,15 @@
     <link rel="stylesheet" href="./../../assets/css/post.css">
 </head>
 <body>
-    <div class="loading"></div>
     <div class="container">
         <a href="javascript:history.back()">Voltar</a>
         <ul class="postList"></ul>
     </div>
+    <div class="loading"></div>
     <script src="../../env.js"></script>
     <script type="module">
-        import { getSections, renderSections } from "./../../assets/js/sections.js";
-        const postId = new URLSearchParams(window.location.search).get("id");
-        renderSections(await getSections(postId));
+        import { renderContent } from "../../assets/js/content.js";
+        renderContent(false)
     </script>
 </body>
 </html>

@@ -36,7 +36,7 @@
     <script src="../../env.js"></script>
     <script type="module">
         import { login, isLoggedIn } from "../../assets/js/auth.js";
-        import { getPosts, renderPosts } from "../../assets/js/posts.js";
+        import { renderPosts } from "../../assets/js/content.js";
 
         document.getElementById("loginForm").addEventListener("submit", async (e) => {
             e.preventDefault();
@@ -60,7 +60,7 @@
             document.querySelector(".admin").style.display = "none";
         }
 
-        renderPosts(await getPosts(), true);        
+        renderPosts(true);        
     </script>
 </body>
 </html>
