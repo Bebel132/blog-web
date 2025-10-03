@@ -76,9 +76,11 @@ async function renderPosts(admin) {
             const formattedDate = new Intl.DateTimeFormat('pt-BR').format(date);
             small.textContent = "- "+formattedDate;
 
+            const div = document.createElement("div");
+            div.appendChild(i)
+            div.appendChild(small)
 
-            p.appendChild(i);
-            p.appendChild(small)
+            p.appendChild(div)
             li.appendChild(p);
             postList.append(li);
         })
@@ -218,23 +220,31 @@ async function renderContent(admin) {
     } else {
         document.querySelector(".loading").style.display = "fixed";
 
-        const container = document.querySelector(".container");
+        const content = document.querySelector(".content");
+        const sectionsContainer = document.querySelector(".sectionsList");
+
+        sectionsContainer.style.display = "none"
 
         const title = document.createElement("h1");
         title.textContent = post.title;
         
-        container.appendChild(title)
+        content.appendChild(title)
     
         for (const section of sectionList) {
             const subtitle = document.createElement("h2");
+            subtitle.id = section.title
             subtitle.textContent = section.title;
-            container.appendChild(subtitle);
+            content.appendChild(subtitle);
+
+            const li = document.createElement("li");
+            li.textContent = section.title
+            sectionsContainer.appendChild(li)
 
             const texts = await getTexts(section.id);
             for (const text of texts) {
                 const p = document.createElement("p");
                 p.textContent = text.content;
-                container.appendChild(p);
+                content.appendChild(p);
 
                 if (text.hasFile) {
                     const imgWrapper = document.createElement("div");
@@ -244,7 +254,7 @@ async function renderContent(admin) {
                     img.src = await getTextFile(text.id);
 
                     imgWrapper.append(img)
-                    container.append(imgWrapper);
+                    content.append(imgWrapper);
                 }
             }
         }
@@ -262,9 +272,20 @@ async function renderContent(admin) {
 
         p.append(i)
         p.append(small)
-        container.append(p)
+        content.append(p)
 
         document.querySelector(".loading").style.display = "none";
+        sectionsContainer.style.display = "flex"
+
+        for(const li of sectionsContainer.children) {
+            console.log(li)
+            li.onclick = () => {
+                document.getElementById(li.textContent).scrollIntoView({
+                    behavior: "smooth",
+                    block: "center"
+                })
+            }
+        }
     }
     
 }

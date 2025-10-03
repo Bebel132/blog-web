@@ -1,21 +1,29 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Posts</title>
     <link rel="stylesheet" href="./../../assets/css/post.css">
 </head>
+
 <body>
     <div class="container">
-        <a href="javascript:history.back()">Voltar</a>
-        <ul class="postList"></ul>
+        <div class="content">
+            <a href="javascript:history.back()">Voltar</a>
+            <div class="loading"></div>
+        </div>
+        <div class="sectionList-container">
+            <ul class="sectionsList">
+            </ul>
+        </div>
     </div>
-    <div class="loading"></div>
     <script src="../../env.js"></script>
     <script type="module">
         import { renderContent } from "../../assets/js/content.js";
         renderContent(false)
     </script>
 </body>
+
 </html>

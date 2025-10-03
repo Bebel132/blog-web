@@ -4,20 +4,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog</title>
+    <link rel="stylesheet" href="./assets/css/index.css">
 </head>
 <body>
     <div class="container">
-        <h1>Bem-vindo ao meu blog!</h1>
-        <p>Este é um blog simples feito com HTML.</p>
-        <h2>Postagens Recentes</h2>
-        <ul class="postList">
+        <div class="outset">
+            <div class="text">
+                <h1 class="mobileTitle">Bem-vindo <br> ao meu blog!</h1>
+                <div class="title"></div>
+                <div class="subTitle"></div>
+                <p>Este é um blog simples feito com FLASK.</p>
+            </div>
+            <img src="./assets/img/header.png" alt="">
+        </div>
+        <h2 class="recentPosts">Postagens Recentes</h2>
+        <div class="content">
+            <ul class="postList">
             
-        </ul>
+            </ul>
+        </div>
     </div>
     <script src="env.js"></script>
     <script type="module">
         import { renderPosts } from "./assets/js/content.js";
-        renderPosts(false);     
+        renderPosts(false);
+
+        const wel = ['B', 'e', 'm', '-', 'v', 'i', 'n', 'd', 'o', ' ', 'a', 'o', ' ', 'm', 'e', 'u', ' ', 'b', 'l', 'o', 'g', '!']
+        for(let i = 0; i < wel.length-13; i++){
+            let span = document.createElement("span");
+            span.textContent = wel[i]
+            
+            document.querySelector(".title").appendChild(span)
+        }
+
+        const come = wel.splice(10, wel.length);
+        for(let i = 0; i < come.length; i++) {
+            let span = document.createElement("span");
+            span.textContent = come[i]
+            
+            document.querySelector(".subTitle").appendChild(span)
+        }
     </script>
 </body>
 </html>

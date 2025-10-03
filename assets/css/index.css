@@ -1,0 +1,156 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+/* outset */
+
+.outset {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    padding: 80px 0;
+}
+
+.outset img {
+    max-width: 400px;
+    width: 100%;
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%   { transform: translateY(0px); }
+    50%  { transform: translateY(-15px); }
+    100% { transform: translateY(0px); }
+}
+
+.title, .subTitle {
+    display: flex;
+    font-size: 40px;
+    cursor: default;
+    margin-left: -5px;
+}
+
+.text span {
+    width: 30px;
+    transition: .1s;
+    text-align: center;
+}
+
+.title span:hover, .subTitle span:hover {
+    transform: translate(0, -10px);
+}
+
+.text {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.mobileTitle {
+    display: none;
+}
+
+@media screen and (max-width: 900px) {
+    .mobileTitle {
+        display: block;
+    }
+
+    .title, .subTitle {
+        display: none;
+    }
+}
+
+/* content */
+
+.recentPosts {
+    background-color: #dbdbdb;
+    padding: 1rem;
+    width: fit-content;
+    margin: 0 auto -30px auto;
+    z-index: 1000;
+    position: relative;
+    border-radius: 10px;
+}
+
+.content {
+    background-color: #dbdbdb;
+    width: 100%;
+    position: relative;
+    padding: 80px 0;
+}
+
+.postList {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    list-style: none;
+    gap: 30px;
+}
+
+@media screen and (max-width: 900px) {
+    .postList {
+        grid-template-columns: 1fr;
+    }
+}
+
+.post-item {
+    width: 320px;
+    margin: 0 auto;
+    border: 3px solid #000;
+    background-color: #fff;
+    box-shadow: 10px 10px 1px #000;
+    transition: .2s;
+    position: relative;
+    cursor: pointer;
+}
+
+.post-item::before {
+    content: "";
+    position: relative;
+    display: block;
+    top: 0;
+    left: 0;
+    height: 30px;
+    width: 100%;
+    border-bottom: 3px solid #000;
+}
+
+.post-item::after {
+    content: "° °";
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 0;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.post-item:hover {
+    transform: translate(0, -10px);
+    box-shadow: 20px 20px 10px #000;
+}
+
+.post-item p {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 150px;
+}
+
+.post-item p div {
+    display: flex;
+    justify-content: space-between;
+}
