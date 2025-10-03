@@ -370,7 +370,7 @@ function renderActions() {
                             await putSection(id, textArea.value, JSON.parse(child.dataset[sectionOrText]).post.id)
                         }
 
-                        await renderContent();
+                        await renderContent(true);
                     }
                 }
             })
@@ -387,10 +387,10 @@ function renderActions() {
 
             if(sectionOrText == 'text') {
                 await deleteText(id);
-                await renderContent();
+                await renderContent(true);
             } else {
                 await deleteSection(id);
-                await renderContent();
+                await renderContent(true);
             }
         }
 
@@ -424,7 +424,7 @@ function renderActions() {
                 await postText(content, sectionId, file);
             }
             
-            await renderContent();
+            await renderContent(true);
 
             modal.parentElement.style.display = "none";
             modal.reset(); 
