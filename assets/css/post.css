@@ -25,15 +25,6 @@ body {
     width: 200px;
 }
 
-@media screen and (max-width: 900px) {
-    .sectionList-container {
-        display: none;
-    }
-
-    .container {
-        padding: 20px 40px;
-    }
-}
 
 .sectionsList {
     width: 200px;
@@ -80,6 +71,20 @@ p {
     padding: 40px;
     gap: 30px;
     position: relative;
+}
+
+@media screen and (max-width: 900px) {
+    .sectionList-container {
+        display: none;
+    }
+
+    .container {
+        padding: 20px 30px;
+    }
+
+    .content {
+        padding: 40px 20px;
+    }
 }
 
 .imgWrapper {
