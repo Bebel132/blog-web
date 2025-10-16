@@ -77,6 +77,7 @@ button {
 
 input[type="text"], input[type="password"], textarea {
     width: 100%;
+    height: auto;
     padding: 12px 20px;
     margin: 8px 0;
     display: inline-block;
@@ -84,6 +85,16 @@ input[type="text"], input[type="password"], textarea {
     border-radius: 4px;
     box-sizing: border-box;
     font-family: 'Times New Roman', Times, serif;
+}
+
+textarea {
+    width: 100%;
+    min-height: 50px;
+    resize: none;
+    overflow: hidden;
+    padding: 10px;
+    font-size: 16px;
+    box-sizing: border-box;
 }
 
 img {

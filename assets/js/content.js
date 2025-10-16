@@ -198,7 +198,11 @@ async function renderContent(admin) {
                     const li = document.createElement("li");
                     li.className = "texts";
                     li.dataset.text = JSON.stringify(text);
-                    li.textContent = text.content;
+
+                    const p = document.createElement("p");
+                    p.innerHTML = text.content
+
+                    li.append(p)
 
                     if(text.hasFile) {
                         const img = document.createElement("img");
@@ -243,7 +247,7 @@ async function renderContent(admin) {
             const texts = await getTexts(section.id);
             for (const text of texts) {
                 const p = document.createElement("p");
-                p.textContent = text.content;
+                p.innerHTML = text.content;
                 content.appendChild(p);
 
                 if (text.hasFile) {
@@ -278,7 +282,6 @@ async function renderContent(admin) {
         sectionsContainer.style.display = "flex"
 
         for(const li of sectionsContainer.children) {
-            console.log(li)
             li.onclick = () => {
                 document.getElementById(li.textContent).scrollIntoView({
                     behavior: "smooth",
@@ -308,7 +311,12 @@ function renderActions() {
             const parent = item.parentElement;
 
             const textArea = document.createElement("textarea");
+            
+            textArea.addEventListener("input", () => {
+                textArea.style.height = 'auto';
+                textArea.style.height = textArea.scrollHeight + 'px';
 
+            })
             let upload = null;
             
             const saveBtn = document.createElement("button");
@@ -323,8 +331,6 @@ function renderActions() {
                 upload = document.createElement("input");
                 upload.type = "file";
                 upload.accept = ".png,.jpg,.jpeg,.gif";
-
-                console.log(item)
 
                 if(JSON.parse(item.dataset.text).hasFile){
                     const url = await getTextFile(JSON.parse(item.dataset.text).id);
@@ -353,8 +359,25 @@ function renderActions() {
                     const text = JSON.parse(child.dataset[sectionOrText])[titleOrContent];
 
                     textArea.value = text;
-
                     parent.children[i].replaceChildren(div);
+
+                    textArea.onkeydown = e => {
+                        if(e.key == "Tab") {
+                            e.preventDefault()
+                            
+                            const el = e.target;
+                            const start = el.selectionStart;
+                            const end = el.selectionEnd;
+
+                            const tab = '\t';
+                            el.setRangeText(tab, start, end, 'end');
+                        }
+                    }
+                        
+                    textArea.style.height = 'auto';
+                    const computed = getComputedStyle(textArea);
+                    const borderY = parseFloat(computed.borderTopWidth) + parseFloat(computed.borderBottomWidth);
+                    textArea.style.height = (textArea.scrollHeight + borderY) + 'px';
 
                     saveBtn.onclick = async () => {
                         const id = JSON.parse(child.dataset[sectionOrText]).id;
@@ -367,7 +390,7 @@ function renderActions() {
                                 await putText(id, textArea.value, JSON.parse(child.dataset[sectionOrText]).sectionId);
                             }
                         } else {
-                            await putSection(id, textArea.value, JSON.parse(child.dataset[sectionOrText]).post.id)
+                            await putSection(id, textArea.value, JSON.parse(child.dataset[sectionOrText]).postId)
                         }
 
                         await renderContent(true);
