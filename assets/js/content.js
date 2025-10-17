@@ -97,11 +97,10 @@ async function renderPosts(admin) {
             postList.append(li);
         })
 
-        let firstPostText = postList.children[0].children[0].textContent.split(" ");
-        firstPostText.splice(1, 0, "- mais novo! 🌟")
-        console.log(firstPostText)
-        postList.children[0].children[0].innerHTML = `${firstPostText[0]} ${firstPostText[1]} <div><i style="display: block;">${firstPostText[2]+" "+firstPostText[3]}</i><small>${firstPostText[4]}</small></div>`
-        console.log(firstPostText)
+        let firstPostText = postList.children[0].children[0].textContent.split("por");
+        firstPostText[0] += "- mais novo! 🌟"
+        firstPostText[1] = firstPostText[1].slice(0, 0) + "por" + firstPostText[1].slice(0)
+        postList.children[0].children[0].innerHTML = `${firstPostText[0]} <div><i style="display: block;">${firstPostText[1].split(" ")[0]+" "+firstPostText[1].split(" ")[1]}</i><small>${firstPostText[1].split(" ")[2]}</small></div>`
         
         document.querySelector("#previous").disabled = false
         document.querySelector("#next").disabled = false
