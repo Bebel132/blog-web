@@ -1,4 +1,4 @@
-import { getPosts, putPost, deletePost, postPost } from "./services/posts.js";
+import { getPosts, getCount, putPost, deletePost, postPost } from "./services/posts.js";
 import { getSections, putSection, deleteSection, postSection } from "./services/sections.js";
 import { getTexts, putText, deleteText, postText, getTextFile, postTextFile } from "./services/texts.js";
 
@@ -10,12 +10,15 @@ const post = {
     created_at: url.get("date")
 };
 
+let page = 1;
+let count = await getCount();
+
 let sectionId = null;
 
 async function renderPosts(admin) {
-    const posts = await getPosts()
     const postList = document.querySelector(".postList");
     if(admin) {
+        const posts = await getPosts(true);
         postList.innerHTML = "";
         posts.forEach(post => {
             const li = document.createElement("li");
@@ -57,8 +60,17 @@ async function renderPosts(admin) {
             li.appendChild(deleteButton);
             postList.append(li);
         });
+
+        for(let i = 0; i < posts.length; i++) {
+            document.querySelectorAll(".post-item")[i].children[0].addEventListener("click", () => {
+                window.location.href = `post.html?id=${posts[i].id}&title=${encodeURIComponent(posts[i].title)}`;
+            })
+        }
+
         renderPostButtons();
     } else {
+        const posts = await getPosts(false, page)
+        postList.innerHTML = "";
         posts.forEach(post => {
             const li = document.createElement("li");
             li.classList.add("post-item");
@@ -74,7 +86,7 @@ async function renderPosts(admin) {
             const small = document.createElement("small");
             const date = new Date(post.created_at);
             const formattedDate = new Intl.DateTimeFormat('pt-BR').format(date);
-            small.textContent = "- "+formattedDate;
+            small.textContent = formattedDate;
 
             const div = document.createElement("div");
             div.appendChild(i)
@@ -84,17 +96,37 @@ async function renderPosts(admin) {
             li.appendChild(p);
             postList.append(li);
         })
+        
+        document.querySelector("#previous").disabled = false
+        document.querySelector("#next").disabled = false
+
+        if(page == 1) {
+            document.querySelector("#previous").disabled = true
+        }
+
+        if(page == Math.ceil(count/6)) {
+            document.querySelector("#next").disabled = true
+        }
+
+        document.querySelector("#previous").onclick = async () => {
+            page--;
+            renderPosts(false, await getPosts(false, page));
+        }
+
+        document.querySelector("#count").textContent = `${page} de ${Math.ceil(count/6)}`
+
+        document.querySelector("#next").onclick = async () => {
+            page++;
+            renderPosts(false, await getPosts(false, page));
+        }
+
+        for(let i = 0; i < posts.length; i++){
+            document.querySelectorAll(".post-item")[i].children[0].addEventListener("click", () => {
+                window.location.href = `pages/post/index.html?id=${posts[i].id}&title=${encodeURIComponent(posts[i].title)}&date=${posts[i].created_at}&creator=${posts[i].creator}`;
+            })
+        }
     }
 
-    for(let i = 0; i < posts.length; i++){
-        document.querySelectorAll(".post-item")[i].children[0].addEventListener("click", () => {
-            if(admin) {
-                window.location.href = `post.html?id=${posts[i].id}&title=${encodeURIComponent(posts[i].title)}`;
-            } else {
-                window.location.href = `pages/post/index.html?id=${posts[i].id}&title=${encodeURIComponent(posts[i].title)}&date=${posts[i].created_at}&creator=${posts[i].creator}`;
-            } 
-        })
-    }
 }
 
 function renderPostButtons() {
@@ -129,7 +161,7 @@ function renderPostButtons() {
             } catch (error) {
                 alert("Erro ao salvar o post");
             }
-            renderPosts(await getPosts(), true);
+            renderPosts(await getPosts(true), true);
         };
     });
 
@@ -137,7 +169,7 @@ function renderPostButtons() {
         button.onclick = async () => {
             const parent = button.parentElement;
             await deletePost(JSON.parse(parent.dataset.post).id);
-            renderPosts(await getPosts(), true);
+            renderPosts(await getPosts(true), true);
         };
     });
 
@@ -156,7 +188,7 @@ function renderPostButtons() {
 
         await postPost(title);
 
-        renderPosts(await getPosts(), true);
+        renderPosts(await getPosts(true), true);
 
         document.querySelector(".modal").style.display = "none";
         document.querySelector(".modal form").reset();

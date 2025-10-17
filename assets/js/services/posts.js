@@ -1,13 +1,17 @@
-import { authFetch } from "../auth.js";
+import { authFetch, me } from "../auth.js";
 import { API_URL } from "../config.js";
 
-async function getPosts(admin) {
+async function getPosts(admin, page) {
     if(admin){
         const user = await me();
-        return (await fetch(`${API_URL}/posts/${user.id}`)).json();
+        return (await fetch(`${API_URL}/posts/${user}`)).json();
     } else {
-        return (await fetch(`${API_URL}/posts/`)).json();
+        return (await fetch(`${API_URL}/posts/${page}`)).json();
     }
+}
+
+async function getCount() {
+    return (await fetch(`${API_URL}/posts/count`)).json();
 }
 
 async function putPost(id, title) {
@@ -30,4 +34,4 @@ async function postPost(title) {
     });
 }
 
-export { getPosts, putPost, deletePost, postPost };
+export { getPosts, getCount, putPost, deletePost, postPost };

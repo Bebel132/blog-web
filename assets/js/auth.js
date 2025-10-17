@@ -98,4 +98,9 @@ function isLoggedIn() {
     return !!token;
 }
 
-export { login, logout, refreshToken, authFetch, isLoggedIn };
+async function me() {
+    const user = await authFetch(`${API_URL}/auth/me`);
+    return user.id
+}
+
+export { login, logout, refreshToken, authFetch, isLoggedIn, me };

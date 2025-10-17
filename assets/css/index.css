@@ -154,3 +154,13 @@ html {
     display: flex;
     justify-content: space-between;
 }
+
+.buttons {
+    margin: 30px auto 0 auto;
+    text-align: center;
+}
+
+.buttons button {
+    padding: .5rem 1rem;
+    cursor: pointer;
+}
