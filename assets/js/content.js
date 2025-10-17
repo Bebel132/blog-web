@@ -85,7 +85,7 @@ async function renderPosts(admin) {
 
             const small = document.createElement("small");
             const date = new Date(post.created_at);
-            const formattedDate = new Intl.DateTimeFormat('pt-BR').format(date);
+            const formattedDate = " "+new Intl.DateTimeFormat('pt-BR').format(date);
             small.textContent = formattedDate;
 
             const div = document.createElement("div");
@@ -96,6 +96,12 @@ async function renderPosts(admin) {
             li.appendChild(p);
             postList.append(li);
         })
+
+        let firstPostText = postList.children[0].children[0].textContent.split(" ");
+        firstPostText.splice(1, 0, "- mais novo! 🌟")
+        console.log(firstPostText)
+        postList.children[0].children[0].innerHTML = `${firstPostText[0]} ${firstPostText[1]} <div><i style="display: block;">${firstPostText[2]+" "+firstPostText[3]}</i><small>${firstPostText[4]}</small></div>`
+        console.log(firstPostText)
         
         document.querySelector("#previous").disabled = false
         document.querySelector("#next").disabled = false
