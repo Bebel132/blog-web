@@ -11,6 +11,7 @@ body {
     #c2c2c2 20px,
     #c2c2c2 40px
   );
+  min-height: 100vh;
 }
 
 .container {
@@ -71,6 +72,30 @@ p {
     padding: 40px;
     gap: 30px;
     position: relative;
+}
+
+.content-buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    position: sticky;
+    top: 0;
+    background-color: #fff;
+    padding: 20px 0;
+}
+
+.content-buttons button {
+    background-color: #008CBA;
+    border-color: #008CBA;
+    padding: .5rem 1rem;
+    border: 1px solid;
+    border-radius: 5px;
+    cursor: pointer;
+    color: white;
+    transition: .1s;
+    height: 2.3rem;
+    margin-right: .5rem;
+    
 }
 
 @media screen and (max-width: 900px) {

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Posts</title>
+    <link rel="stylesheet" href="./../../assets/css/post.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="content">
+            <div class="content-buttons">
+                <a href="javascript:history.back()">Voltar</a>
+                <button id="publish">Publicar</button>
+            </div>
+            <div class="loading"></div>
+        </div>
+        <div class="sectionList-container">
+            <ul class="sectionsList">
+            </ul>
+        </div>
+    </div>
+    <script src="../../env.js"></script>
+    <script type="module">
+        import { renderContent } from "../../assets/js/content.js";
+        renderContent(false)
+    </script>
+</body>
+
+</html>

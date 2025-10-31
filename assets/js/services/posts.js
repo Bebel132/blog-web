@@ -4,7 +4,7 @@ import { API_URL } from "../config.js";
 async function getPosts(admin, page) {
     if(admin){
         const user = await me();
-        return (await fetch(`${API_URL}/posts/${user}`)).json();
+        return (await authFetch(`${API_URL}/posts/all/${user}`, {method: 'GET'}));
     } else {
         return (await fetch(`${API_URL}/posts/${page}`)).json();
     }
@@ -34,4 +34,8 @@ async function postPost(title) {
     });
 }
 
-export { getPosts, getCount, putPost, deletePost, postPost };
+async function publishPost(id) {
+    return authFetch(`${API_URL}/publish/${id}`, {method: 'POST'})
+}
+
+export { getPosts, getCount, putPost, deletePost, postPost, publishPost };

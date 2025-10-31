@@ -44,12 +44,17 @@ button {
     background-color: #00000000;
 }
 
-.edit-button {
+.buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.edit-button, .preview-button {
     background-color: #008CBA;
     border-color: #008CBA;
 }
 
-.edit-button:hover {
+.edit-button:hover, .preview-button:hover {
     color: #007bb5;
     background-color: #00000000;
 }
