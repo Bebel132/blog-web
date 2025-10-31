@@ -27,6 +27,7 @@ const post = {
   title: url.get("title"),
   creator: url.get("creator"),
   created_at: url.get("date"),
+  is_draft: url.get("is_draft") === "true" ? true : false,
 };
 
 let page = 1;
@@ -91,7 +92,7 @@ async function renderPosts(admin) {
 
     for (let i = 0; i < posts.length; i++) {
       document.querySelectorAll(".post-item")[i].children[0].addEventListener("click", () => {
-        window.location.href = `post.html?id=${posts[i].id}&title=${encodeURIComponent(posts[i].title)}&date=${posts[i].created_at}&creator=${posts[i].creator}`;
+        window.location.href = `post.html?id=${posts[i].id}&title=${encodeURIComponent(posts[i].title)}&date=${posts[i].created_at}&creator=${posts[i].creator}&is_draft=${posts[i].is_draft}`;
       });
     }
 
@@ -237,6 +238,10 @@ function renderPostButtons() {
 }
 
 async function renderContent(admin) {
+  if(!post.is_draft) {
+    document.querySelector("#preview-post").style.display = "none";
+  }
+
   const sectionList = await getSections(post.id);
   if (admin) {
     const sections = document.querySelector(".sectionList");
