@@ -177,6 +177,7 @@ function renderPostButtons() {
       const parent = button.parentElement;
       parent.children[0].style.display = "none"; // p
       parent.children[1].style.display = "inline"; // input
+      parent.children[1].focus();
 
       parent.children[2].style.display = "none"; // editButton
       parent.children[3].style.display = "inline"; // saveButton
@@ -217,6 +218,7 @@ function renderPostButtons() {
 
   document.querySelector(".new-button").onclick = () => {
     document.querySelector(".modal").style.display = "flex";
+    document.querySelector(".modal").children[1].children[1].focus();
   };
 
   document.querySelector(".x").onclick = () => {
@@ -450,7 +452,7 @@ function renderActions() {
 
           textArea.value = text;
           parent.children[i].replaceChildren(div);
-
+          
           textArea.onkeydown = (e) => {
             if (e.key == "Tab") {
               e.preventDefault();
@@ -470,6 +472,7 @@ function renderActions() {
             parseFloat(computed.borderTopWidth) +
             parseFloat(computed.borderBottomWidth);
           textArea.style.height = textArea.scrollHeight + borderY + "px";
+          textArea.focus();
 
           saveBtn.onclick = async () => {
             const id = JSON.parse(child.dataset[sectionOrText]).id;
@@ -526,6 +529,8 @@ function renderActions() {
 
   document.querySelector("#new-section").onclick = () => {
     document.querySelector("#modalSection").style.display = "flex";
+
+    document.querySelector("#modalSection").children[1].children[1].focus();
   };
 
   document.querySelectorAll(".x").forEach((x) => {
@@ -570,6 +575,9 @@ function renderActions() {
       e.stopPropagation();
 
       document.querySelector("#modalText").style.display = "flex";
+
+      document.querySelector("#modalText").children[1].children[1].focus();
+
       sectionId = JSON.parse(btn.parentElement.dataset.section).id;
     };
   });
