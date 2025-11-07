@@ -164,3 +164,44 @@ html {
     padding: .5rem 1rem;
     cursor: pointer;
 }
+
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    bottom: 0;
+    padding: 55px 0;
+    margin: 0 auto;
+}
+
+.loading::after {
+    content: "";
+    width: 50px;
+    height: 50px;
+    border: 10px solid #ffffff;
+    border-radius: 50%;
+    border-top-color: transparent; 
+    animation: spin 1s linear infinite;
+}
+
+.loading::before {
+    content: "carregando";
+    position: absolute;
+    margin-top: 7rem;
+    animation: dots 1.5s steps(4, end) infinite;
+    text-align: center;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes dots {
+    0%   { content: "carregando"; }
+    25%  { content: "carregando."; }
+    50%  { content: "carregando.."; }
+    75%  { content: "carregando..."; }
+    100% { content: "carregando"; }
+}

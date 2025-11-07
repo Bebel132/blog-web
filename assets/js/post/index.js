@@ -6,10 +6,11 @@ import {
 let page = 1;
 let count = await getCount();
 
-let sectionId = null;
-
 async function renderPosts() {
   const postList = document.querySelector(".postList");
+
+  document.querySelector(".loading").style.display = "flex";
+  document.querySelector(".buttons").style.display = "none";
   
   const posts = await getPosts(false, page);
   postList.innerHTML = "";
@@ -80,6 +81,9 @@ async function renderPosts() {
       window.location.href = `pages/post/index.html?id=${posts[i].id}&title=${encodeURIComponent(posts[i].title)}&date=${posts[i].created_at}&creator=${posts[i].creator}`;
     });
   }
+
+  document.querySelector(".loading").style.display = "none";
+  document.querySelector(".buttons").style.display = "block";
 
 }
 
