@@ -3,12 +3,22 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+:root {
+    --background-color: #ffffff;
+    --font-color: #000;
+}
+
+body {
+    background-color: var(--background-color);
+    color: var(--font-color);
+}
+
 li.texts {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin: 1rem 0;
-    border-bottom: 1px solid #000;
+    border-bottom: 1px solid var(--font-color);
     gap: 1rem;
     padding-bottom: 1rem;
 }
@@ -24,7 +34,6 @@ li.texts div {
 
 button {
     padding: .5rem 1rem;
-    background-color: #00000000;
     border: 1px solid;
     border-radius: 5px;
     cursor: pointer;

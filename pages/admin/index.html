@@ -6,6 +6,15 @@
     <title>admin</title>
     <link rel="stylesheet" href="../../assets/css/admin.css">
     <link rel="stylesheet" href="../../assets/css/modal.css">
+    <script>
+        if(window.localStorage.getItem("darkMode") == "true") {
+            document.documentElement.style.setProperty('--background-color', '#141414');
+            document.documentElement.style.setProperty('--font-color', '#e6e6e6');
+        } else {
+            document.documentElement.style.setProperty('--background-color', '#e6e6e6');
+            document.documentElement.style.setProperty('--font-color', '#141414');
+        }  
+    </script>
 </head>
 <body>
     <div class="login">
@@ -18,6 +27,8 @@
     <div class="admin" style="display: none;">
         <h1>Área Administrativa</h1>
         <p>Bem-vindo à área administrativa do blog!</p>
+        <label for="darkMode">DarkMode:</label>
+        <input type="checkbox" name="" id="darkMode">
         <h2>Posts:</h2>
         <button class="new-button">Criar Novo Post</button>
         <ul class="postList">
@@ -58,6 +69,23 @@
         } else {
             document.querySelector(".login").style.display = "block";
             document.querySelector(".admin").style.display = "none";
+        }
+        
+        const darkModeInput = document.querySelector("#darkMode");
+
+        if(window.localStorage.getItem("darkMode") == "true") {
+            darkModeInput.checked = true;
+        }
+
+        darkModeInput.onchange = () => {
+            window.localStorage.setItem("darkMode", darkModeInput.checked)
+            if(darkModeInput.checked) {
+                document.documentElement.style.setProperty('--background-color', '#000');
+                document.documentElement.style.setProperty('--font-color', '#fff')
+            } else {
+                document.documentElement.style.setProperty('--background-color', '#fff');
+                document.documentElement.style.setProperty('--font-color', '#000');
+            }
         }
 
         renderPosts();        
