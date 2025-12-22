@@ -6,6 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Posts</title>
     <link rel="stylesheet" href="./../../assets/css/post.css">
+    <script>
+        if(window.localStorage.getItem("darkMode") == "true") {
+            document.documentElement.style.setProperty('--background-color', '#141414');
+            document.documentElement.style.setProperty('--font-color', '#e6e6e6');
+            document.documentElement.style.setProperty('--gray-color1', '#3d3d3d');
+            document.documentElement.style.setProperty('--gray-color2', '#2a2a2a');
+        } else {
+            document.documentElement.style.setProperty('--background-color', '#fff');
+            document.documentElement.style.setProperty('--font-color', '#141414');
+            document.documentElement.style.setProperty('--gray-color1', '#dbdbdb');
+            document.documentElement.style.setProperty('--gray-color2', '#c2c2c2');
+        }  
+    </script>
 </head>
 
 <body>

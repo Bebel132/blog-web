@@ -10,6 +10,8 @@
         if(window.localStorage.getItem("darkMode") == "true") {
             document.documentElement.style.setProperty('--background-color', '#141414');
             document.documentElement.style.setProperty('--font-color', '#e6e6e6');
+            document.documentElement.style.setProperty('----gray-color1', '#dbdbdb')
+            document.documentElement.style.setProperty('----gray-color2', '#c2c2c2')
         } else {
             document.documentElement.style.setProperty('--background-color', '#fff');
             document.documentElement.style.setProperty('--font-color', '#141414');
@@ -81,7 +83,7 @@
             window.localStorage.setItem("darkMode", darkModeInput.checked)
             if(darkModeInput.checked) {
                 document.documentElement.style.setProperty('--background-color', '#000');
-                document.documentElement.style.setProperty('--font-color', '#fff')
+                document.documentElement.style.setProperty('--font-color', '#fff');
             } else {
                 document.documentElement.style.setProperty('--background-color', '#fff');
                 document.documentElement.style.setProperty('--font-color', '#000');

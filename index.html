@@ -1,12 +1,26 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog</title>
     <link rel="stylesheet" href="./assets/css/index.css">
+    <script>
+        if (window.localStorage.getItem("darkMode") == "true") {
+            document.documentElement.style.setProperty('--background-color', '#141414');
+            document.documentElement.style.setProperty('--font-color', '#e6e6e6');
+            document.documentElement.style.setProperty('--gray-color1', '#1C1C1C');
+        } else {
+            document.documentElement.style.setProperty('--background-color', '#fff');
+            document.documentElement.style.setProperty('--font-color', '#141414');
+            document.documentElement.style.setProperty('--gray-color1', '#dbdbdb');
+        }  
+    </script>
 </head>
+
 <body>
+    <button id="darkMode"></button>
     <div class="container">
         <div class="outset">
             <div class="text">
@@ -20,7 +34,7 @@
         <h2 class="recentPosts">Postagens Recentes</h2>
         <div class="content">
             <ul class="postList">
-                
+
             </ul>
             <div class="loading"></div>
             <div class="buttons">
@@ -36,20 +50,43 @@
         renderPosts();
 
         const wel = ['B', 'e', 'm', '-', 'v', 'i', 'n', 'd', 'o', ' ', 'a', 'o', ' ', 'm', 'e', 'u', ' ', 'b', 'l', 'o', 'g', '!']
-        for(let i = 0; i < wel.length-13; i++){
+        for (let i = 0; i < wel.length - 13; i++) {
             let span = document.createElement("span");
             span.textContent = wel[i]
-            
+
             document.querySelector(".title").appendChild(span)
         }
 
         const come = wel.splice(10, wel.length);
-        for(let i = 0; i < come.length; i++) {
+        for (let i = 0; i < come.length; i++) {
             let span = document.createElement("span");
             span.textContent = come[i]
-            
+
             document.querySelector(".subTitle").appendChild(span)
+        }
+
+        const darkModeBtn = document.querySelector("#darkMode");
+        if (window.localStorage.getItem("darkMode") == "true") {
+            darkModeBtn.textContent = "Modo  Claro"
+        } else {
+            darkModeBtn.textContent = "Modo Escuro"
+        }
+        
+        darkModeBtn.onclick = () => {
+            window.localStorage.setItem("darkMode", window.localStorage.getItem("darkMode") == "true" ? "false" : "true");
+            if (window.localStorage.getItem("darkMode") == "true") {
+                document.documentElement.style.setProperty('--background-color', '#141414');
+                document.documentElement.style.setProperty('--font-color', '#e6e6e6');
+                document.documentElement.style.setProperty('--gray-color1', '#1C1C1C');
+                darkModeBtn.textContent = "Modo Claro"
+            } else {
+                document.documentElement.style.setProperty('--background-color', '#fff');
+                document.documentElement.style.setProperty('--font-color', '#141414');
+                document.documentElement.style.setProperty('--gray-color1', '#dbdbdb');
+                darkModeBtn.textContent = "Modo Escuro"
+            }
         }
     </script>
 </body>
+
 </html>

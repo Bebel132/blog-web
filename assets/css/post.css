@@ -3,13 +3,20 @@
     padding: 0;
 }
 
+:root {
+    --background-color: #ffffff;
+    --font-color: #000;
+    --gray-color1: #dbdbdb;
+    --gray-color2: #c2c2c2;
+}
+
 body {
   background: repeating-linear-gradient(
     45deg,
-    #dbdbdb 0,
-    #dbdbdb 20px,
-    #c2c2c2 20px,
-    #c2c2c2 40px
+    var(--gray-color1) 0,
+    var(--gray-color1) 20px,
+    var(--gray-color2) 20px,
+    var(--gray-color2) 40px
   );
   min-height: 100vh;
 }
@@ -20,6 +27,7 @@ body {
     gap: 40px;
     position: relative;
     padding: 80px 0;
+    color: var(--font-color);
 }
 
 .sectionList-container {
@@ -29,7 +37,7 @@ body {
 
 .sectionsList {
     width: 200px;
-    background-color: #fff;
+    background-color: var(--background-color);
     height: 400px;
     position: fixed;
     list-style: none;
@@ -39,13 +47,13 @@ body {
 
 .sectionsList li {
     padding: 20px;
-    border: 2px solid #fff;
+    border: 2px solid var(--background-color);
     transition: .2s;
     cursor: pointer;
 }
 
 .sectionsList li:hover {
-    border: 2px solid #000000;
+    border: 2px solid var(--font-color);
 }
 
 .content > p:last-child {
@@ -56,6 +64,7 @@ body {
   background-color: #999dd2;
   padding: 1rem;
   width: fit-content;
+  color: var(--font-color);
 }
 
 p {
@@ -68,7 +77,7 @@ p {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #fff;
+    background-color: var(--background-color);
     padding: 40px;
     gap: 30px;
     position: relative;
@@ -80,7 +89,7 @@ p {
     width: 100%;
     position: sticky;
     top: 0;
-    background-color: #fff;
+    background-color: var(--background-color);
     padding: 20px 0;
 }
 
@@ -91,7 +100,7 @@ p {
     border: 1px solid;
     border-radius: 5px;
     cursor: pointer;
-    color: white;
+    color: var(--background-color);
     transition: .1s;
     height: 2.3rem;
     margin-right: .5rem;
@@ -131,7 +140,7 @@ img {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #fff;
+    background-color: var(--background-color);
     bottom: 0;
     position: absolute;
     padding: 55px 0;
@@ -141,7 +150,7 @@ img {
     content: "";
     width: 50px;
     height: 50px;
-    border: 10px solid #dbdbdb;
+    border: 10px solid var(--gray-color1);
     border-radius: 50%;
     border-top-color: transparent; 
     animation: spin 1s linear infinite;
