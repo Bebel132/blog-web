@@ -27,7 +27,7 @@ async function renderPosts() {
     i.style.display = "block";
 
     const small = document.createElement("small");
-    const date = new Date(post.created_at);
+    const date = new Date(post.published_at);
     const formattedDate = " " + new Intl.DateTimeFormat("pt-BR").format(date);
     small.textContent = formattedDate;
 
