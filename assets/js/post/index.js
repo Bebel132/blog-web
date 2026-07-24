@@ -3,10 +3,11 @@ import {
   getCount,
 } from "./../services/posts.js";
 
-let page = 1;
-let count = await getCount();
 
 async function renderPosts() {
+  let page = 1;
+  let count = await getCount();
+  
   const postList = document.querySelector(".postList");
 
   document.querySelector(".loading").style.display = "flex";

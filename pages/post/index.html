@@ -32,10 +32,13 @@
             </ul>
         </div>
     </div>
-    <script src="../../env.js"></script>
     <script type="module">
+        import { initApiUrl } from "../../assets/js/config.js";
         import { renderContent } from "../../assets/js/post/content.js";
-        renderContent(false)
+
+        window.addEventListener('apiReady', () => {
+            renderContent(false)
+        })
     </script>
 </body>
 

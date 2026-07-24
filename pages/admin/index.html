@@ -46,51 +46,54 @@
         </div>
     </div>
 
-    <script src="../../env.js"></script>
     <script type="module">
+        import { initApiUrl } from "../../assets/js/config.js";
         import { login, isLoggedIn } from "../../assets/js/auth.js";
         import { renderPosts } from "../../assets/js/admin/index.js";
 
-        document.getElementById("loginForm").addEventListener("submit", async (e) => {
-            e.preventDefault();
-            const email = document.getElementById("email").value;
-            const password = document.getElementById("password").value;
-
-            const success = await login(email, password);
-            if (success) {
+        window.addEventListener('apiReady', () => {
+            document.getElementById("loginForm").addEventListener("submit", async (e) => {
+                e.preventDefault();
+                const email = document.getElementById("email").value;
+                const password = document.getElementById("password").value;
+    
+                const success = await login(email, password);
+                if (success) {
+                    document.querySelector(".login").style.display = "none";
+                    document.querySelector(".admin").style.display = "block";
+                } else {
+                    alert("Usuário ou senha inválidos");
+                }
+            });
+    
+            if(isLoggedIn()) {
                 document.querySelector(".login").style.display = "none";
                 document.querySelector(".admin").style.display = "block";
             } else {
-                alert("Usuário ou senha inválidos");
+                document.querySelector(".login").style.display = "block";
+                document.querySelector(".admin").style.display = "none";
             }
+            
+            const darkModeInput = document.querySelector("#darkMode");
+    
+            if(window.localStorage.getItem("darkMode") == "true") {
+                darkModeInput.checked = true;
+            }
+    
+            darkModeInput.onchange = () => {
+                window.localStorage.setItem("darkMode", darkModeInput.checked)
+                if(darkModeInput.checked) {
+                    document.documentElement.style.setProperty('--background-color', '#000');
+                    document.documentElement.style.setProperty('--font-color', '#fff');
+                } else {
+                    document.documentElement.style.setProperty('--background-color', '#fff');
+                    document.documentElement.style.setProperty('--font-color', '#000');
+                }
+            }
+    
+            renderPosts();        
         });
 
-        if(isLoggedIn()) {
-            document.querySelector(".login").style.display = "none";
-            document.querySelector(".admin").style.display = "block";
-        } else {
-            document.querySelector(".login").style.display = "block";
-            document.querySelector(".admin").style.display = "none";
-        }
-        
-        const darkModeInput = document.querySelector("#darkMode");
-
-        if(window.localStorage.getItem("darkMode") == "true") {
-            darkModeInput.checked = true;
-        }
-
-        darkModeInput.onchange = () => {
-            window.localStorage.setItem("darkMode", darkModeInput.checked)
-            if(darkModeInput.checked) {
-                document.documentElement.style.setProperty('--background-color', '#000');
-                document.documentElement.style.setProperty('--font-color', '#fff');
-            } else {
-                document.documentElement.style.setProperty('--background-color', '#fff');
-                document.documentElement.style.setProperty('--font-color', '#000');
-            }
-        }
-
-        renderPosts();        
     </script>
 </body>
 </html>

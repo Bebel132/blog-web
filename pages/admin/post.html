@@ -48,11 +48,14 @@
         </div>
     </div>
 
-    <script src="../../env.js"></script>
     <script type="module">
+        import { initApiUrl } from "../../assets/js/config.js";
         import { renderContent } from "../../assets/js/admin/content.js";
-        renderContent(false)
-        document.getElementById("title").innerText += " "+new URLSearchParams(window.location.search).get("title");
+
+         window.addEventListener('apiReady', () => {
+            renderContent(false);
+            document.getElementById("title").innerText += " " + new URLSearchParams(window.location.search).get("title");
+        });
         // const postId = new URLSearchParams(window.location.search).get("id");
         // renderSections(await getSections(postId), true);
     </script>
