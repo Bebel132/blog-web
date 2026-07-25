@@ -61,7 +61,7 @@ body {
 }
 
 .content > p:nth-last-child(2) {
-  background-color: #999dd2;
+  background-color: #363B7C;
   padding: 1rem;
   width: fit-content;
   color: var(--font-color);
