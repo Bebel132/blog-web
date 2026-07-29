@@ -3,11 +3,7 @@ import {
   getCount,
 } from "./../services/posts.js";
 
-
-async function renderPosts() {
-  let page = 1;
-  let count = await getCount();
-  
+async function renderPosts(page, count) {
   const postList = document.querySelector(".postList");
 
   document.querySelector(".loading").style.display = "flex";
@@ -65,7 +61,7 @@ async function renderPosts() {
 
   document.querySelector("#previous").onclick = async () => {
     page--;
-    renderPosts(false, await getPosts(false, page));
+    renderPosts(page, count);
   };
 
   document.querySelector("#count").textContent = `${page} de ${Math.ceil(
@@ -74,7 +70,7 @@ async function renderPosts() {
 
   document.querySelector("#next").onclick = async () => {
     page++;
-    renderPosts(false, await getPosts(false, page));
+    renderPosts(page, count);
   };
 
   for (let i = 0; i < posts.length; i++) {

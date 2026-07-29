@@ -47,9 +47,12 @@
     <script type="module">
         import { initApiUrl } from "./assets/js/config.js";
         import { renderPosts } from "./assets/js/post/index.js";
+        import { getCount } from "./assets/js/services/posts.js";
 
-        window.addEventListener('apiReady', () => {
-            renderPosts();
+        window.addEventListener('apiReady', async () => {
+            let page = 1;
+            let count = await getCount();
+            renderPosts(page, count);
         })
 
         const wel = ['B', 'e', 'm', '-', 'v', 'i', 'n', 'd', 'o', ' ', 'a', 'o', ' ', 'm', 'e', 'u', ' ', 'b', 'l', 'o', 'g', '!']
