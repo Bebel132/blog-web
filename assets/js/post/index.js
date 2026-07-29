@@ -4,6 +4,8 @@ import {
 } from "./../services/posts.js";
 
 async function renderPosts(page, count) {
+  window.sessionStorage.setItem("postsPage", String(page));
+
   const postList = document.querySelector(".postList");
 
   document.querySelector(".loading").style.display = "flex";

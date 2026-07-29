@@ -50,7 +50,7 @@
         import { getCount } from "./assets/js/services/posts.js";
 
         window.addEventListener('apiReady', async () => {
-            let page = 1;
+            let page = Number(window.sessionStorage.getItem("postsPage")) || 1;
             let count = await getCount();
             renderPosts(page, count);
         })
