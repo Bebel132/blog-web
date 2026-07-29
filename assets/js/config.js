@@ -9,7 +9,6 @@ export async function initApiUrl() {
         const data = await response.json();
         API_URL = data.api_url;
         console.log('API URL carregada:', API_URL);
-        API_URL = 'http://127.0.0.1:5000';
         
         // Dispara evento quando pronto
         window.dispatchEvent(new CustomEvent('apiReady', { detail: API_URL }));
