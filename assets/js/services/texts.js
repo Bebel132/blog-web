@@ -35,13 +35,21 @@ async function deleteText(id) {
 
 async function getTextFile(id) {
     const response = await fetch(`${API_URL}/texts/${id}/file`)
-    
-    return URL.createObjectURL(await response.blob())
+    const file = URL.createObjectURL(await response.blob())
+    console.log(response.headers.get('X-Image-Width'), response.headers.get('X-Image-Height'))
+    return {
+        file,
+        width: response.headers.get('X-Image-Width'),
+        height: response.headers.get('X-Image-Height'),
+    }
 }
 
-async function postTextFile(file, id) {
+async function postTextFile(file, id, width = null, height = null) {
    const formData = new FormData();
     formData.append('file', file);
+    console.log(width, height)
+    if (width) formData.append('width', width);
+    if (height) formData.append('height', height);
 
     authFetch(`${API_URL}/texts/${id}/upload`, {
         method: 'POST',

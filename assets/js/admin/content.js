@@ -66,9 +66,45 @@ async function renderContent() {
         li.append(p);
 
         if (text.hasFile) {
+          const imgContainer = document.createElement("div");
+
           const img = document.createElement("img");
-          img.src = await getTextFile(text.id);
-          li.appendChild(img);
+          const imageFile = await getTextFile(text.id);
+          img.src = imageFile.file;
+          
+          const imgConfig = document.createElement("button");
+          imgConfig.textContent = "configurar imagem";
+          imgConfig.classList.add("img-config-button");
+          imgConfig.onclick = async (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+
+            const imageDimensions = prompt("Digite as dimensões da imagem (ex: 300x200):");
+
+            if (!imageDimensions) {
+              return;
+            }
+
+            const [width, height] = imageDimensions
+              .split("x")
+              .map((dim) => parseInt(dim.trim()));
+
+            if (isNaN(width) || isNaN(height)) {
+              alert("Dimensões inválidas. Por favor, use o formato correto (ex: 300x200).");
+              return;
+            }
+
+            const response = await fetch(img.src);
+            const blob = await response.blob();
+            const file = new File([blob], "imagem.png", { type: blob.type });
+
+            await postTextFile(file, text.id, width == 0 ? null : width, height == 0 ? null : height);
+          };
+
+          imgContainer.appendChild(img);
+          imgContainer.appendChild(imgConfig);
+          li.appendChild(imgContainer);
+          imgContainer.style.width = "250px"
         }
 
         const deleteBtn = document.createElement("button");
@@ -131,8 +167,8 @@ function renderActions() {
         upload.accept = ".png,.jpg,.jpeg,.gif";
 
         if (JSON.parse(item.dataset.text).hasFile) {
-          const url = await getTextFile(JSON.parse(item.dataset.text).id);
-          const response = await fetch(url);
+          const imageFile = await getTextFile(JSON.parse(item.dataset.text).id);
+          const response = await fetch(imageFile.file);
           const blob = await response.blob();
 
           const file = new File([blob], "imagem.png", { type: blob.type });

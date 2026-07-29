@@ -25,11 +25,14 @@ li.texts {
 
 li.texts div {
     display: flex;
-    justify-content: space-between;
     align-items: center;
     margin: 1rem 0;
     width: 100%;
     gap: 1rem;
+}
+
+li.texts p {
+    width: 100%;
 }
 
 button {
@@ -38,8 +41,10 @@ button {
     border-radius: 5px;
     cursor: pointer;
     color: white;
+    background-color: #6b6b6b;
+    border: none;
     transition: .1s;
-    height: 2.3rem;
+    min-height: 2.3rem;
     margin-right: .5rem;
 }
 

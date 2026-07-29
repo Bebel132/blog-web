@@ -54,7 +54,22 @@ async function renderContent(admin) {
         imgWrapper.classList.add("imgWrapper");
 
         const img = document.createElement("img");
-        img.src = await getTextFile(text.id);
+        
+        const imageFile = await getTextFile(text.id);
+
+        img.src = imageFile.file;
+        
+        if (imageFile.width) {
+          img.style.width = `${imageFile.width}px`;
+        } else {
+          img.style.width = "100%";
+        }
+
+        if (imageFile.height) {
+          img.style.height = `${imageFile.height}px`;
+        } else {
+          img.style.height = "auto";
+        }
 
         imgWrapper.append(img);
         content.append(imgWrapper);

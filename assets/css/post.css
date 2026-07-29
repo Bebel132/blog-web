@@ -128,12 +128,6 @@ p {
     margin: -25px 0 20px 0;
 }
 
-img {
-    max-width: 250px;
-    width: 100%;
-    height: auto;
-}
-
 .loading {
     max-width: 880px;
     width: 100%;
