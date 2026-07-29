@@ -63,6 +63,7 @@ async function renderPosts(page, count) {
 
   document.querySelector("#previous").onclick = async () => {
     page--;
+    document.querySelector(".postList").innerHTML = "";
     renderPosts(page, count);
   };
 
@@ -72,6 +73,7 @@ async function renderPosts(page, count) {
 
   document.querySelector("#next").onclick = async () => {
     page++;
+    document.querySelector(".postList")
     renderPosts(page, count);
   };
 
