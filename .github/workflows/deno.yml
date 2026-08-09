@@ -18,7 +18,7 @@ jobs:
           API_URL=$(curl -s "https://gist.githubusercontent.com/Bebel132/c695194f270beb73384b82b9efc7ee90/raw/blog-api.json?t=$(date +%s)" | jq -r '.api_url')
           
           # Testa se a API responde
-          STATUS_CODE=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 "$API_URL/health" || echo "000")
+          STATUS_CODE=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 "$API_URL/posts/count" || echo "000")
           
           if [ "$STATUS_CODE" = "200" ]; then
             echo "badge=[![API Status](https://img.shields.io/badge/API-online-brightgreen)]($API_URL)" >> $GITHUB_OUTPUT
