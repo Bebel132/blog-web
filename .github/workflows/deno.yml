@@ -21,9 +21,9 @@ jobs:
           STATUS_CODE=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 "$API_URL/posts/count" || echo "000")
           
           if [ "$STATUS_CODE" = "200" ]; then
-            echo "badge=[![API Status](https://img.shields.io/badge/API-online-brightgreen)]($API_URL)" >> $GITHUB_OUTPUT
+            echo "badge=[![Site Status](https://img.shields.io/badge/API-online-brightgreen)]($API_URL)" >> $GITHUB_OUTPUT
           else
-            echo "badge=[![API Status](https://img.shields.io/badge/API-offline-red)]($API_URL)" >> $GITHUB_OUTPUT
+            echo "badge=[![Site Status](https://img.shields.io/badge/API-offline-red)]($API_URL)" >> $GITHUB_OUTPUT
           fi
 
       - name: Update README
