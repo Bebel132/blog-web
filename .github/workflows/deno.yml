@@ -1,0 +1,39 @@
+name: Update API Status Badge
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'  # A cada 5 minutos
+  workflow_dispatch:
+
+jobs:
+  update-badge:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Check API Status
+        id: check
+        run: |
+          # Pega a URL do Gist
+          API_URL=$(curl -s "https://gist.githubusercontent.com/Bebel132/c695194f270beb73384b82b9efc7ee90/raw/blog-api.json?t=$(date +%s)" | jq -r '.api_url')
+          
+          # Testa se a API responde
+          STATUS_CODE=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 "$API_URL/health" || echo "000")
+          
+          if [ "$STATUS_CODE" = "200" ]; then
+            echo "badge=[![API Status](https://img.shields.io/badge/API-online-brightgreen)]($API_URL)" >> $GITHUB_OUTPUT
+          else
+            echo "badge=[![API Status](https://img.shields.io/badge/API-offline-red)]($API_URL)" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Update README
+        run: |
+          BADGE="${{ steps.check.outputs.badge }}"
+          # Substitui a linha do badge antigo ou adiciona nova
+          sed -i 's|!\[API Status\].*|'"$BADGE"'|' README.md || sed -i '1a\'"$BADGE" README.md
+          
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add README.md
+          git diff --cached --quiet || git commit -m "Update API status badge"
+          git push
