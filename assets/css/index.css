@@ -231,6 +231,26 @@ body {
     text-align: center;
 }
 
+.service-unavailable {
+    max-width: 520px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.service-unavailable strong {
+    font-size: 4rem;
+    color: #b42318;
+}
+
+.service-unavailable h2 {
+    margin: 10px 0;
+}
+
+.service-unavailable p {
+    line-height: 1.5;
+}
+
 @keyframes spin {
   to {
     transform: rotate(360deg);

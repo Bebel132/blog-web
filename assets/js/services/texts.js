@@ -4,6 +4,10 @@ import { API_URL } from "../config.js";
 async function getTexts(id) {
     const response = await fetch(`${API_URL}/texts/${id}`);
 
+    if (!response.ok) {
+        throw new Error(`API indisponivel: ${response.status}`);
+    }
+
     return response.json();
 }
 
@@ -35,6 +39,11 @@ async function deleteText(id) {
 
 async function getTextFile(id) {
     const response = await fetch(`${API_URL}/texts/${id}/file`)
+
+    if (!response.ok) {
+        throw new Error(`API indisponivel: ${response.status}`);
+    }
+
     const file = URL.createObjectURL(await response.blob())
     console.log(response.headers.get('X-Image-Width'), response.headers.get('X-Image-Height'))
     return {

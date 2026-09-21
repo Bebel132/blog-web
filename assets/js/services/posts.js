@@ -6,12 +6,20 @@ async function getPosts(admin, page) {
         const user = await me();
         return (await authFetch(`${API_URL}/posts/all/${user}`, {method: 'GET'}));
     } else {
-        return (await fetch(`${API_URL}/posts/${page}`)).json();
+        const response = await fetch(`${API_URL}/posts/${page}`);
+        if (!response.ok) {
+            throw new Error(`API indisponivel: ${response.status}`);
+        }
+        return response.json();
     }
 }
 
 async function getCount() {
-    return (await fetch(`${API_URL}/posts/count`)).json();
+    const response = await fetch(`${API_URL}/posts/count`);
+    if (!response.ok) {
+        throw new Error(`API indisponivel: ${response.status}`);
+    }
+    return response.json();
 }
 
 async function putPost(id, title) {

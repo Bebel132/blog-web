@@ -4,6 +4,10 @@ import { API_URL } from "../config.js";
 async function getSections(id) {
     const response = await fetch(`${API_URL}/sections/${id}`);
 
+    if (!response.ok) {
+        throw new Error(`API indisponivel: ${response.status}`);
+    }
+
     return response.json();
 }
 

@@ -49,10 +49,30 @@
         import { renderPosts } from "./assets/js/post/index.js";
         import { getCount } from "./assets/js/services/posts.js";
 
+        function showServiceUnavailable(error) {
+            document.querySelector(".loading").style.display = "none";
+            document.querySelector(".buttons").style.display = "none";
+            document.querySelector(".postList").style.display = "none";
+
+            const unavailable = document.createElement("div");
+            unavailable.className = "service-unavailable";
+            unavailable.innerHTML = `
+                <strong>503</strong>
+                <h2>Serviço indisponível</h2>
+                <p>Não foi possível carregar as postagens no momento. Tente novamente mais tarde.</p>
+            `;
+            document.querySelector(".content").appendChild(unavailable);
+            console.error("Não foi possível carregar as postagens:", error);
+        }
+
         window.addEventListener('apiReady', async () => {
-            let page = Number(window.sessionStorage.getItem("postsPage")) || 1;
-            let count = await getCount();
-            renderPosts(page, count);
+            try {
+                let page = Number(window.sessionStorage.getItem("postsPage")) || 1;
+                let count = await getCount();
+                await renderPosts(page, count);
+            } catch (error) {
+                showServiceUnavailable(error);
+            }
         })
 
         const wel = ['B', 'e', 'm', '-', 'v', 'i', 'n', 'd', 'o', ' ', 'a', 'o', ' ', 'm', 'e', 'u', ' ', 'b', 'l', 'o', 'g', '!']
