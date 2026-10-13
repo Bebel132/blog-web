@@ -39,16 +39,18 @@ async function renderPosts(page, count) {
     postList.append(li);
   });
 
-  let firstPostText =
-    postList.children[0].children[0].textContent.split("por");
-  firstPostText[0] += "- mais novo! 🌟";
-  firstPostText[1] =
-    firstPostText[1].slice(0, 0) + "por" + firstPostText[1].slice(0);
-  postList.children[0].children[0].innerHTML = `${
-    firstPostText[0]
-  } <div><i style="display: block;">${
-    firstPostText[1].split(" ")[0] + " " + firstPostText[1].split(" ")[1]
-  }</i><small>${firstPostText[1].split(" ")[2]}</small></div>`;
+  if (page === 1 && postList.children.length > 0) {
+    let firstPostText =
+      postList.children[0].children[0].textContent.split("por");
+    firstPostText[0] += "- mais novo! 🌟";
+    firstPostText[1] =
+      firstPostText[1].slice(0, 0) + "por" + firstPostText[1].slice(0);
+    postList.children[0].children[0].innerHTML = `${
+      firstPostText[0]
+    } <div><i style="display: block;">${
+      firstPostText[1].split(" ")[0] + " " + firstPostText[1].split(" ")[1]
+    }</i><small>${firstPostText[1].split(" ")[2]}</small></div>`;
+  }
 
   document.querySelector("#previous").disabled = false;
   document.querySelector("#next").disabled = false;
